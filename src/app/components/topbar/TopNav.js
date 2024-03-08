@@ -51,7 +51,7 @@ function TopNav() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={username} src="assets/avatar.png" />
+                <Avatar alt={username} src="/assets/avatar.png" />
                 <Typography variant="body1" className="ml-2">
                   {username}
                 </Typography>

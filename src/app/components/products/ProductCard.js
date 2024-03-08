@@ -14,10 +14,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export const ProductCard = (props) => {
   const { product, handleDelete } = props;
   const { isAdmin } = useSelector((state) => state.users);
+  const router = useRouter();
+
+  const handleEdit = () => {
+    router.push(`/edit-product/${product.id}`);
+  };
 
   // const truncateDescription = (description) => {
   //   return description.length > 50
@@ -29,7 +35,10 @@ export const ProductCard = (props) => {
     if (isAdmin) {
       return (
         <>
-          <IconButton className="bg-[#698bf4] text-white hover:bg-[#6182e6]">
+          <IconButton
+            className="bg-[#698bf4] text-white hover:bg-[#6182e6]"
+            onClick={handleEdit}
+          >
             <EditIcon />
           </IconButton>
           <IconButton

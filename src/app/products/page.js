@@ -28,13 +28,16 @@ import withAuth from "../hoc/withAuth";
 import {
   productDeleted,
   selectProducts,
-  fetchProducts,
   setProducts,
 } from "../slices/productsSlice";
 
 const Products = () => {
+  const dispatch = useDispatch();
+  const { isAdmin } = useSelector((state) => state.users);
+
   const [currentPage, setCurrentPage] = useState(1);
   const products = useSelector(selectProducts);
+  const { data, isLoading, error } = useGetProductsQuery();
 
   const itemsPerPage = 9;
   // Descending order of IDs
@@ -43,11 +46,7 @@ const Products = () => {
   const endIndex = startIndex + itemsPerPage;
   const paginatedProducts = sortedProducts.slice(startIndex, endIndex);
 
-  const { data, isLoading, error } = useGetProductsQuery();
-  const dispatch = useDispatch();
-
-  const { isAdmin } = useSelector((state) => state.users);
-
+  
   useEffect(() => {
     if (data && data.products && products.length === 0) {
       dispatch(setProducts(data.products));
@@ -60,14 +59,13 @@ const Products = () => {
     try {
       // Dispatch action to update Redux store
       dispatch(productDeleted(productId));
-
       showToast("Product deleted successfully", "success");
     } catch (error) {
       console.error("Error deleting product:", "error");
     }
   };
 
-  const handlePageChange = (event, page) => {
+  const handlePageChange = ( page) => {
     setCurrentPage(page);
   };
 
@@ -131,4 +129,4 @@ const Products = () => {
 };
 
 // Wrap Products with withAuth HOC so the component is protected
-export default withAuth(Products);
+export default Products;

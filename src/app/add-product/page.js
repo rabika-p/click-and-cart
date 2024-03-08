@@ -1,6 +1,8 @@
+
 import ProductForm from "../components/products/ProductForm";
 import SideNav from "../components/sidebar/SideNav";
 import TopNav from "../components/topbar/TopNav";
+// import withAuth from "../hoc/withAuth";
 import FormLayout from "../layouts/layout";
 
 const ProductFormPage = () => {
@@ -12,7 +14,7 @@ const ProductFormPage = () => {
       <div className="col-span-5">
         <TopNav />
         <FormLayout minHeight={"90vh"}>
-          <ProductForm />
+          <ProductForm mode="add" />
         </FormLayout>
       </div>
     </div>

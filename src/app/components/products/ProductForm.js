@@ -1,30 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { addProduct, selectProducts } from "@/app/slices/productsSlice";
+import { addProduct, selectProducts, updateProduct } from "@/app/slices/productsSlice";
 import { showToast } from "../login/Toast";
 
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { CloseOutlined } from "@mui/icons-material";
 
-const ProductForm = () => {
+const ProductForm = ({mode, productToEdit}) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
   const products = useSelector(selectProducts);
 
   const [productData, setProductData] = useState({
-    id: Math.floor(Math.random() * 1000),
-    title: "",
-    price: "",
-    description: "",
-    rating: "",
-    thumbnail: "",
+    title: productToEdit?.title || "",
+    price: productToEdit?.price || "",
+    description: productToEdit?.description || "",
+    rating: productToEdit?.rating || "",
+    thumbnail: productToEdit?.thumbnail || "",
   });
+
+  useEffect(() => {
+    if (mode === "edit" && productToEdit) {
+      setProductData(productToEdit);
+    }
+  }, [mode, productToEdit]);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -36,24 +41,22 @@ const ProductForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newId =
-      products.length > 0 ? products[products.length - 1].id + 1 : 1;
     try {
-      const newProduct = { ...productData, id: newId };
-      dispatch(addProduct(newProduct));
-      showToast("Product added succesfully", "success");
+      if (mode === "add") {
+        const newId =
+          products.length > 0 ? products[products.length - 1].id + 1 : 1;
+        const newProduct = { ...productData, id: newId };
+        dispatch(addProduct(newProduct));
+        showToast("Product added successfully", "success");
+      } else if (mode === "edit" && productToEdit) {
+        dispatch(updateProduct(productData));
+        console.log(productData)
+        showToast("Product updated successfully", "success");
+      }
       router.push("/products");
-      setProductData({
-        id: newId,
-        title: "",
-        price: "",
-        thumbnail: "",
-        rating: "",
-        description: "",
-      });
     } catch (error) {
-      console.error("Error adding product:", error);
-      showToast("Product could not be added", "error");
+      console.error("Error:", error);
+      showToast("Operation failed", "error");
     }
   };
 
@@ -62,13 +65,16 @@ const ProductForm = () => {
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center">
           <ShoppingCartOutlinedIcon className="text-3xl mr-2" />
-          <h1 className="text-xl font-semibold">Add Product</h1>
+          <h1 className="text-xl font-semibold">
+            {mode === "add" ? "Add Product" : "Edit Product"}
+          </h1>
         </div>
         <Link href="/products">
           <CloseOutlined className="text-2xl cursor-pointer" />
         </Link>
       </div>
-      <p className="text-md text-gray-700 mb-4">Enter Product Information</p>
+      <p className="text-md text-gray-700 mb-4">        {mode === "add" ? "Enter Product Information" : "Edit Product Information"}
+</p>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="title" className="text-sm font-medium text-gray-700">
@@ -161,7 +167,7 @@ const ProductForm = () => {
             type="submit"
             className="bg-teal-500 text-white py-2 px-4 rounded-md hover:bg-teal-600"
           >
-            Add Product
+            {mode === "add" ? "Add Product" : "Update Product"}
           </button>
         </div>
       </form>
