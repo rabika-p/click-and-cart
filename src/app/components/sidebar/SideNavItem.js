@@ -6,22 +6,36 @@ const SideNavItem = ({ active = false, icon, path, title }) => {
 
   return (
     <li>
-      <ButtonBase
-        className={`flex items-center justify-start pl-4 pr-4 py-3 w-full ${
-          active && "bg-gray-600"
-        }`}
-        {...linkProps}
+    <ButtonBase
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'start',
+        paddingLeft: '1rem',
+        paddingRight: '1rem',
+        paddingTop: '0.75rem',
+        paddingBottom: '0.75rem',
+        width: '100%',
+        backgroundColor: active ? '#4a5568' : '',
+      }}
+      {...linkProps}
+    >
+      {icon && <Box style={{ marginRight: '0.5rem' }}>{icon}</Box>}
+      <Box
+        style={{
+          flexGrow: 1,
+          fontWeight: 'bold',
+          fontSize: '0.875rem',
+          lineHeight: '1.5',
+          whiteSpace: 'nowrap',
+          color: active ? '#ffffff' : '#e2e5ea',
+        }}
       >
-        {icon && <Box className="mr-2">{icon}</Box>}
-        <Box
-          className={`flex-grow font-semibold text-sm leading-6 whitespace-nowrap ${
-            active ? "text-white" : "text-gray-300"
-          }`}
-        >
-          {title}
-        </Box>
-      </ButtonBase>
-    </li>
+        {title}
+      </Box>
+    </ButtonBase>
+  </li>
+  
   );
 };
 

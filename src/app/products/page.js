@@ -28,16 +28,14 @@ import withAuth from "../hoc/withAuth";
 import {
   productDeleted,
   selectProducts,
+  fetchProducts,
   setProducts,
 } from "../slices/productsSlice";
+import AuthLayout from "../layouts/authLayout";
 
 const Products = () => {
-  const dispatch = useDispatch();
-  const { isAdmin } = useSelector((state) => state.users);
-
   const [currentPage, setCurrentPage] = useState(1);
   const products = useSelector(selectProducts);
-  const { data, isLoading, error } = useGetProductsQuery();
 
   const itemsPerPage = 9;
   // Descending order of IDs
@@ -46,7 +44,11 @@ const Products = () => {
   const endIndex = startIndex + itemsPerPage;
   const paginatedProducts = sortedProducts.slice(startIndex, endIndex);
 
-  
+  const { data, isLoading, error } = useGetProductsQuery();
+  const dispatch = useDispatch();
+
+  const { isAdmin } = useSelector((state) => state.users);
+
   useEffect(() => {
     if (data && data.products && products.length === 0) {
       dispatch(setProducts(data.products));
@@ -59,74 +61,69 @@ const Products = () => {
     try {
       // Dispatch action to update Redux store
       dispatch(productDeleted(productId));
+
       showToast("Product deleted successfully", "success");
     } catch (error) {
       console.error("Error deleting product:", "error");
     }
   };
 
-  const handlePageChange = ( page) => {
+  const handlePageChange = (event, page) => {
     setCurrentPage(page);
   };
 
   return (
-    <div className="grid grid-cols-5 h-screen">
-      <div className="col-span-1">
-        <SideNav />
-      </div>
-      <div className="col-span-4">
-        <TopNav />
-        <Container maxWidth="xl" className="mb-4">
-          <Stack spacing={3}>
-            <Stack direction="row" justifyContent="space-between" spacing={4}>
-              <Stack spacing={1}>
-                <Typography variant="h4">Product List</Typography>
-              </Stack>
-              <div>
-                {isAdmin && (
-                  <Link href="/add-product">
-                    <Button
-                      startIcon={
-                        <SvgIcon fontSize="small">
-                          <AddIcon />
-                        </SvgIcon>
-                      }
-                      variant="contained"
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      Add
-                    </Button>
-                  </Link>
-                )}
-              </div>
+    <AuthLayout>
+      <Container>
+        <Stack spacing={3}>
+          <Stack direction="row" justifyContent="space-between" spacing={4}>
+            <Stack spacing={1}>
+              <Typography variant="h4">Product List</Typography>
             </Stack>
-            <ProductsSearch />
-            <Grid container spacing={3}>
-              {paginatedProducts.map((product) => (
-                <Grid xs={12} md={6} lg={4} key={product.id}>
-                  <ProductCard product={product} handleDelete={handleDelete} />
-                </Grid>
-              ))}
-            </Grid>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Pagination
-                count={Math.ceil(sortedProducts.length / itemsPerPage)}
-                page={currentPage}
-                size="small"
-                onChange={handlePageChange}
-              />
-            </Box>
+            <div>
+              {isAdmin && (
+                <Link href="/add-product">
+                  <Button
+                    startIcon={
+                      <SvgIcon fontSize="small">
+                        <AddIcon />
+                      </SvgIcon>
+                    }
+                    variant="contained"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Add
+                  </Button>
+                </Link>
+              )}
+            </div>
           </Stack>
-        </Container>
-      </div>
-    </div>
+          <ProductsSearch />
+          <Grid container spacing={3}>
+            {paginatedProducts.map((product) => (
+              <Grid xs={12} md={6} lg={4} key={product.id}>
+                <ProductCard product={product} handleDelete={handleDelete} />
+              </Grid>
+            ))}
+          </Grid>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Pagination
+              count={Math.ceil(sortedProducts.length / itemsPerPage)}
+              page={currentPage}
+              size="small"
+              onChange={handlePageChange}
+            />
+          </Box>
+        </Stack>
+      </Container>
+    </AuthLayout>
   );
 };
 
 // Wrap Products with withAuth HOC so the component is protected
-export default Products;
+export default withAuth(Products);

@@ -44,7 +44,14 @@ function TopNav() {
   };
 
   return (
-    <AppBar position="sticky" className="bg-white z-10 shadow-none">
+    <AppBar
+      position="sticky"
+      style={{
+        backgroundColor: "white",
+        boxShadow: "none",
+        zIndex: "10",
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1 }} />

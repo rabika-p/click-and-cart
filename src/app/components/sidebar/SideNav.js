@@ -14,17 +14,16 @@ const SideNav = () => {
       anchor="left"
       PaperProps={{
         sx: {
-          width: 240,
+          border: "none",
+          width: 1 / 6,
         },
       }}
       variant="permanent"
     >
-      <Box
-        className="flex flex-col h-full bg-gray-800 text-white"
-      >
+      <Box className="flex flex-col h-full bg-gray-800 text-white">
         <Box className="p-6">
           <Link href="/" className="flex items-center">
-              <img src="/assets/logo.png" className="max-h-10 max-w-full" />
+            <img src="/assets/logo.png" className="max-h-10 max-w-full" />
           </Link>
         </Box>
         <Box component="nav" className="flex-grow px-4 py-3">

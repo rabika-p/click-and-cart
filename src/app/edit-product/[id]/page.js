@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
-import {selectProducts } from "@/app/slices/productsSlice";
+import { selectProducts } from "@/app/slices/productsSlice";
 import ProductForm from "@/app/components/products/ProductForm";
-import SideNav from "@/app/components/sidebar/SideNav";
-import TopNav from "@/app/components/topbar/TopNav";
 import FormLayout from "@/app/layouts/layout";
 import withAuth from "@/app/hoc/withAuth";
+import AuthLayout from "@/app/layouts/authLayout";
 
 const EditProductPage = () => {
   const products = useSelector(selectProducts);
@@ -56,20 +55,12 @@ const EditProductPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-6 h-screen">
-      <div className="col-span-1">
-        <SideNav />
-      </div>
-      <div className="col-span-5">
-        <TopNav />
-        <FormLayout minHeight={"90vh"}>
-          {productData && (
-            <ProductForm mode="edit" productToEdit={productData} />
-          )}
-        </FormLayout>
-      </div>
-    </div>
+    <AuthLayout>
+      <FormLayout minHeight={"90vh"}>
+        {productData && <ProductForm mode="edit" productToEdit={productData} />}
+      </FormLayout>
+    </AuthLayout>
   );
 };
 
-export default EditProductPage;
+export default withAuth(EditProductPage);
