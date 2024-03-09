@@ -18,8 +18,6 @@ import {
 
 import { ProductCard } from "../components/products/ProductCard";
 import { ProductsSearch } from "../components/products/ProductsSearch";
-import SideNav from "../components/sidebar/SideNav";
-import TopNav from "../components/topbar/TopNav";
 import { showToast } from "../components/login/Toast";
 
 import { useGetProductsQuery } from "../services/productsApi";
@@ -35,7 +33,12 @@ import AuthLayout from "../layouts/authLayout";
 
 const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const products = useSelector(selectProducts);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const products = useSelector((state) =>
+    selectProducts(state, searchQuery, selectedCategory)
+  );
 
   const itemsPerPage = 9;
   // Descending order of IDs
@@ -52,9 +55,9 @@ const Products = () => {
   useEffect(() => {
     if (data && data.products && products.length === 0) {
       dispatch(setProducts(data.products));
-    } else {
-      dispatch(setProducts(products));
-    }
+    } 
+    // else {
+    //   dispatch(setProducts(products));
   }, [data, products]);
 
   const handleDelete = async (productId) => {
@@ -70,6 +73,11 @@ const Products = () => {
 
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
+  };
+
+  const handleSearch = (query, category) => {
+    setSearchQuery(query);
+    setSelectedCategory(category);
   };
 
   return (
@@ -98,7 +106,7 @@ const Products = () => {
               )}
             </div>
           </Stack>
-          <ProductsSearch />
+          <ProductsSearch handleSearch={handleSearch} />
           <Grid container spacing={3}>
             {paginatedProducts.map((product) => (
               <Grid xs={12} md={6} lg={4} key={product.id}>

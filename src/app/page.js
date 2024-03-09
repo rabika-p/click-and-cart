@@ -4,13 +4,13 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const Home = () => {
-  // const router = useRouter();
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   router.push("/login");
-  // }, []);
+  useEffect(() => {
+    router.push("/login");
+  }, []);
 
-  // return null;
+  return null;
 };
 
 export default Home;

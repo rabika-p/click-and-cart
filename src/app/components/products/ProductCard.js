@@ -27,6 +27,10 @@ export const ProductCard = (props) => {
     router.push(`/edit-product/${product.id}`);
   };
 
+  const handleView = () => {
+    router.push(`/products/${product.id}`);
+  };
+
   // const truncateDescription = (description) => {
   //   return description.length > 50
   //     ? description.slice(0, 50) + "..."
@@ -51,6 +55,7 @@ export const ProductCard = (props) => {
                 backgroundColor: "#23C5D2",
               },
             }}
+            onClick={handleView}
           >
             <VisibilityIcon />
           </IconButton>
@@ -102,6 +107,7 @@ export const ProductCard = (props) => {
                 backgroundColor: "#23C5D2",
               },
             }}
+            onClick={handleView}
           >
             <VisibilityIcon />
           </IconButton>

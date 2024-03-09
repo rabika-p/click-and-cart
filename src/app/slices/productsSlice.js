@@ -30,13 +30,40 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { addProduct, setProducts, productDeleted, updateProduct  } =
+export const { addProduct, setProducts, productDeleted, updateProduct } =
   productsSlice.actions;
 
 export default productsSlice.reducer;
 
-export const selectProducts = (state) => state.products.products;
+export const selectProducts = (state, searchQuery, category) => {
+  let filteredProducts = state.products.products;
+
+  // Apply search query filter
+  if (searchQuery) {
+    filteredProducts = filteredProducts.filter((product) =>
+      product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+
+  // Apply category filter
+  if (category && category !== "") {
+    filteredProducts = filteredProducts.filter(
+      (product) => product.category === category
+    );
+  }
+
+  return filteredProducts;
+};
+
+export const selectCategories = (state) => {
+  // Extract all categories from products
+  const allCategories = state.products.products.map(
+    (product) => product.category
+  );
+  // Remove duplicates using Set
+  const uniqueCategories = [...new Set(allCategories)];
+  return uniqueCategories;
+};
 
 export const selectProductById = (id) => (state) =>
   state.products.products.find((product) => product.id === parseInt(id));
-
