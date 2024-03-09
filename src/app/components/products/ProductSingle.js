@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 
 import {
@@ -14,18 +14,30 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { selectProductById } from "@/app/slices/productsSlice";
+import { addToCart } from "@/app/slices/cartsSlice";
+import { showToast } from "../login/Toast";
+import { useRouter } from "next/navigation";
 
 const ProductSingle = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const { isAdmin } = useSelector((state) => state.users);
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
   const product = useSelector(selectProductById(id));
+  const cartItems = useSelector((state) => state.carts.cartItems);
 
   const handleQuantityChange = (value) => {
     const newQuantity = quantity + value;
     if (newQuantity < 1) return;
     if (newQuantity > product.stock) return;
     setQuantity(newQuantity);
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addToCart({ product, quantity }));
+    showToast("Product added to your cart!", "success");
+    router.push("/my-cart");
   };
 
   if (!product) {
@@ -123,6 +135,7 @@ const ProductSingle = () => {
                 alignItems: "center",
               }}
               startIcon={<ShoppingCartIcon />}
+              onClick={handleAddToCart}
             >
               Add To Cart
             </Button>
