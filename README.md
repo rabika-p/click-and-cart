@@ -1,7 +1,7 @@
 ## Click & Cart
 
 ## Overview 
-Click & Cart is an E-Commerce Platform with Integrated Blog developed using Next.js and Redux.  
+Click & Cart is an E-Commerce Platform with Integrated Blog developed using Next.js, Material UI, and Redux Toolkit.  
 
 ## User groups and Roles
 **Admin**  
