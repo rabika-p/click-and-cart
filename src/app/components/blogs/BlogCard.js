@@ -26,9 +26,9 @@ export const BlogCard = (props) => {
   const { isAdmin } = useSelector((state) => state.users);
   const router = useRouter();
 
-  const handleEdit = () => {
-    router.push(`/edit-blog/${blog.id}`);
-  };
+  // const handleEdit = () => {
+  //   router.push(`/edit-blog/${blog.id}`);
+  // };
 
   // const truncateDescription = (description) => {
   //   return description.length > 50
@@ -36,60 +36,60 @@ export const BlogCard = (props) => {
   //     : description;
   // };
 
-  const renderActions = () => {
-    if (isAdmin) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <IconButton
-            style={{
-              backgroundColor: "#54C4CD",
-              color: "white",
-              "&:hover": {
-                backgroundColor: "#23C5D2",
-              },
-            }}
-          >
-            <VisibilityIcon />
-          </IconButton>
+  // const renderActions = () => {
+  //   if (isAdmin) {
+  //     return (
+  //       <div
+  //         style={{
+  //           display: "flex",
+  //           flexDirection: "row",
+  //           justifyContent: "space-between",
+  //         }}
+  //       >
+  //         <IconButton
+  //           style={{
+  //             backgroundColor: "#54C4CD",
+  //             color: "white",
+  //             "&:hover": {
+  //               backgroundColor: "#23C5D2",
+  //             },
+  //           }}
+  //         >
+  //           <VisibilityIcon />
+  //         </IconButton>
 
-          <div>
-            <IconButton
-              style={{
-                backgroundColor: "#698bf4",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "#6182e6",
-                },
-              }}
-              onClick={handleEdit}
-            >
-              <EditIcon />
-            </IconButton>
+  //         <div>
+  //           <IconButton
+  //             style={{
+  //               backgroundColor: "#698bf4",
+  //               color: "white",
+  //               "&:hover": {
+  //                 backgroundColor: "#6182e6",
+  //               },
+  //             }}
+  //             onClick={handleEdit}
+  //           >
+  //             <EditIcon />
+  //           </IconButton>
 
-            <IconButton
-              style={{
-                backgroundColor: "#f46b6b",
-                color: "white",
-                marginLeft: "0.5rem",
-                "&:hover": {
-                  backgroundColor: "#e66363",
-                },
-              }}
-              onClick={() => handleDelete(blog.id)}
-            >
-              <DeleteIcon />
-            </IconButton>
-          </div>
-        </div>
-      );
-    }
-  };
+  //           <IconButton
+  //             style={{
+  //               backgroundColor: "#f46b6b",
+  //               color: "white",
+  //               marginLeft: "0.5rem",
+  //               "&:hover": {
+  //                 backgroundColor: "#e66363",
+  //               },
+  //             }}
+  //             onClick={() => handleDelete(blog.id)}
+  //           >
+  //             <DeleteIcon />
+  //           </IconButton>
+  //         </div>
+  //       </div>
+  //     );
+  //   }
+  // };
 
   return (
     <Card
@@ -116,7 +116,9 @@ export const BlogCard = (props) => {
           >
             <img
               className="h-48 object-fill"
-              src={blog.thumbnail ? blog.thumbnail : "/assets/blog-thumbnail.jpg"}
+              src={
+                blog.thumbnail ? blog.thumbnail : "/assets/blog-thumbnail.jpg"
+              }
               alt="Blog Image"
             />
           </Box>
@@ -179,7 +181,6 @@ export const BlogCard = (props) => {
               color: "black",
               pointerEvents: "auto",
             }}
-            onClick={handleEdit}
           >
             <VisibilityIcon />
           </button>
