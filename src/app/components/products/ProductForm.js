@@ -5,17 +5,23 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { addProduct, selectProducts, updateProduct } from "@/app/slices/productsSlice";
+import {
+  addProduct,
+  selectCategories,
+  selectProducts,
+  updateProduct,
+} from "@/app/slices/productsSlice";
 import { showToast } from "../login/Toast";
 
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { CloseOutlined } from "@mui/icons-material";
 
-const ProductForm = ({mode, productToEdit}) => {
+const ProductForm = ({ mode, productToEdit }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
   const products = useSelector(selectProducts);
+  const categories = useSelector(selectCategories);
 
   const [productData, setProductData] = useState({
     title: productToEdit?.title || "",
@@ -23,6 +29,8 @@ const ProductForm = ({mode, productToEdit}) => {
     description: productToEdit?.description || "",
     rating: productToEdit?.rating || "",
     thumbnail: productToEdit?.thumbnail || "",
+    stock: productToEdit?.stock || "",
+    category: productToEdit?.category || "",
   });
 
   useEffect(() => {
@@ -50,7 +58,7 @@ const ProductForm = ({mode, productToEdit}) => {
         showToast("Product added successfully", "success");
       } else if (mode === "edit" && productToEdit) {
         dispatch(updateProduct(productData));
-        console.log(productData)
+        console.log(productData);
         showToast("Product updated successfully", "success");
       }
       router.push("/products");
@@ -61,7 +69,7 @@ const ProductForm = ({mode, productToEdit}) => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+    <div className="bg-white p-8 rounded-lg shadow-lg">
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center">
           <ShoppingCartOutlinedIcon className="text-3xl mr-2" />
@@ -73,8 +81,12 @@ const ProductForm = ({mode, productToEdit}) => {
           <CloseOutlined className="text-2xl cursor-pointer" />
         </Link>
       </div>
-      <p className="text-md text-gray-700 mb-4">        {mode === "add" ? "Enter Product Information" : "Edit Product Information"}
-</p>
+      <p className="text-md text-gray-700 mb-4">
+        {" "}
+        {mode === "add"
+          ? "Enter Product Information"
+          : "Edit Product Information"}
+      </p>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="title" className="text-sm font-medium text-gray-700">
@@ -91,37 +103,88 @@ const ProductForm = ({mode, productToEdit}) => {
             className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
           />
         </div>
-
-        <div className="mb-4">
-          <label htmlFor="price" className="text-sm font-medium text-gray-700">
-            Price:
-          </label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={productData.price}
-            placeholder="Enter price"
-            onChange={handleInput}
-            required
-            className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
-          />
+        <div className="mb-4 flex">
+          <div className="mr-4">
+            <label
+              htmlFor="price"
+              className="text-sm font-medium text-gray-700"
+            >
+              Price:
+            </label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={productData.price}
+              placeholder="Enter price"
+              onChange={handleInput}
+              required
+              className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
+            />
+          </div>
+          <div className="ml-4">
+            <label
+              htmlFor="category"
+              className="text-sm font-medium text-gray-700"
+            >
+              Category:
+            </label>
+            <select
+              id="category"
+              name="category"
+              value={productData.category}
+              onChange={handleInput}
+              required
+              className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
+            >
+              <option value="">Select category</option>
+              {categories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="rating" className="text-sm font-medium text-gray-700">
-            Rating:
-          </label>
-          <input
-            type="number"
-            id="rating"
-            name="rating"
-            value={productData.rating}
-            placeholder="Enter rating"
-            onChange={handleInput}
-            required
-            className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
-          />
+        <div className="mb-4 flex">
+          <div className="mr-4">
+            <label
+              htmlFor="rating"
+              className="text-sm font-medium text-gray-700"
+            >
+              Rating:
+            </label>
+            <input
+              type="number"
+              id="rating"
+              name="rating"
+              value={productData.rating}
+              placeholder="Enter rating"
+              onChange={handleInput}
+              required
+              className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
+            />
+          </div>
+
+          <div className="ml-3">
+            <label
+              htmlFor="stock"
+              className="text-sm font-medium text-gray-700"
+            >
+              Stock:
+            </label>
+            <input
+              type="number"
+              id="stock"
+              name="stock"
+              value={productData.stock}
+              placeholder="Enter quantity in stock"
+              onChange={handleInput}
+              required
+              className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
+            />
+          </div>
         </div>
 
         <div className="mb-4">
@@ -131,7 +194,7 @@ const ProductForm = ({mode, productToEdit}) => {
           >
             Description:
           </label>
-          <input
+          <textarea
             type="text"
             id="description"
             name="description"
@@ -139,6 +202,7 @@ const ProductForm = ({mode, productToEdit}) => {
             placeholder="Enter description"
             onChange={handleInput}
             required
+            rows="4"
             className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
           />
         </div>

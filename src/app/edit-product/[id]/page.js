@@ -56,7 +56,7 @@ const EditProductPage = () => {
 
   return (
     <AuthLayout>
-      <FormLayout minHeight={"90vh"}>
+      <FormLayout minHeight={"100vh"}>
         {productData && <ProductForm mode="edit" productToEdit={productData} />}
       </FormLayout>
     </AuthLayout>

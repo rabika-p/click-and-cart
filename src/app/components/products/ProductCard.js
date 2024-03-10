@@ -96,15 +96,15 @@ export const ProductCard = (props) => {
           style={{
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
           }}
         >
           <IconButton
             style={{
-              backgroundColor: "#54C4CD",
+              backgroundColor: "#6b9cf4",
               color: "white",
               "&:hover": {
-                backgroundColor: "#23C5D2",
+                backgroundColor: "#6592e5",
               },
             }}
             onClick={handleView}
@@ -112,7 +112,7 @@ export const ProductCard = (props) => {
             <VisibilityIcon />
           </IconButton>
 
-          <IconButton
+          {/* <IconButton
             style={{
               backgroundColor: "#6b9cf4",
               color: "white",
@@ -122,7 +122,7 @@ export const ProductCard = (props) => {
             }}
           >
             <ShoppingCartOutlinedIcon />
-          </IconButton>
+          </IconButton> */}
         </div>
       );
     }

@@ -8,10 +8,10 @@ import { useRouter } from "next/navigation";
 import { addBlog, selectBlogs, updateBlog } from "@/app/slices/blogsSlice";
 import { showToast } from "../login/Toast";
 
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import BookIcon from "@mui/icons-material/Book";
 import { CloseOutlined } from "@mui/icons-material";
 
-const BlogForm = ({mode, blogToEdit}) => {
+const BlogForm = ({ mode, blogToEdit }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ const BlogForm = ({mode, blogToEdit}) => {
 
   const [blogData, setBlogData] = useState({
     title: blogToEdit?.title || "",
-    body: blogToEdit?.description || "",
+    body: blogToEdit?.body || "",
     thumbnail: blogToEdit?.thumbnail || "",
   });
 
@@ -41,14 +41,12 @@ const BlogForm = ({mode, blogToEdit}) => {
     e.preventDefault();
     try {
       if (mode === "add") {
-        const newId =
-          blogs.length > 0 ? blogs[blogs.length - 1].id + 1 : 1;
+        const newId = blogs.length > 0 ? blogs[blogs.length - 1].id + 1 : 1;
         const newBlog = { ...blogData, id: newId };
         dispatch(addBlog(newBlog));
         showToast("Blog added successfully", "success");
       } else if (mode === "edit" && blogToEdit) {
         dispatch(updateBlog(blogData));
-        console.log(blogData)
         showToast("Blog updated successfully", "success");
       }
       router.push("/blogs");
@@ -62,7 +60,7 @@ const BlogForm = ({mode, blogToEdit}) => {
     <div className="bg-white p-8 rounded-lg shadow-lg w-96">
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center">
-          <ShoppingCartOutlinedIcon className="text-3xl mr-2" />
+          <BookIcon className="text-3xl mr-2" />
           <h1 className="text-xl font-semibold">
             {mode === "add" ? "Add Blog" : "Edit Blog"}
           </h1>
@@ -71,8 +69,10 @@ const BlogForm = ({mode, blogToEdit}) => {
           <CloseOutlined className="text-2xl cursor-pointer" />
         </Link>
       </div>
-      <p className="text-md text-gray-700 mb-4">        {mode === "add" ? "Enter Blog Information" : "Edit Blog Information"}
-</p>
+      <p className="text-md text-gray-700 mb-4">
+        {" "}
+        {mode === "add" ? "Enter Blog Information" : "Edit Blog Information"}
+      </p>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="title" className="text-sm font-medium text-gray-700">
@@ -90,53 +90,19 @@ const BlogForm = ({mode, blogToEdit}) => {
           />
         </div>
 
-        {/* <div className="mb-4">
-          <label htmlFor="price" className="text-sm font-medium text-gray-700">
-            Price:
-          </label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={prodData.price}
-            placeholder="Enter price"
-            onChange={handleInput}
-            required
-            className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
-          />
-        </div> */}
-{/* 
         <div className="mb-4">
-          <label htmlFor="rating" className="text-sm font-medium text-gray-700">
-            Rating:
+          <label htmlFor="body" className="text-sm font-medium text-gray-700">
+            Description:
           </label>
-          <input
-            type="number"
-            id="rating"
-            name="rating"
-            value={productData.rating}
-            placeholder="Enter rating"
-            onChange={handleInput}
-            required
-            className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
-          />
-        </div> */}
-
-        <div className="mb-4">
-          <label
-            htmlFor="body"
-            className="text-sm font-medium text-gray-700"
-          >
-            Body:
-          </label>
-          <input
+          <textarea
             type="text"
             id="body"
             name="body"
             value={blogData.body}
-            placeholder="Enter body"
+            placeholder="Enter description"
             onChange={handleInput}
             required
+            rows={"8"}
             className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
           />
         </div>
@@ -155,7 +121,6 @@ const BlogForm = ({mode, blogToEdit}) => {
             value={blogData.thumbnail}
             placeholder="Enter image URL"
             onChange={handleInput}
-            required
             className="w-full bg-white border border-gray-300 rounded-md py-2 px-4 mt-2 placeholder-gray-500"
           />
         </div>

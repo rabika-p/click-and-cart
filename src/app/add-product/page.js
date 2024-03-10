@@ -8,7 +8,7 @@ import FormLayout from "../layouts/layout";
 const ProductFormPage = () => {
   return (
     <AuthLayout>
-      <FormLayout minHeight={"90vh"}>
+      <FormLayout minHeight={"100vh"}>
         <ProductForm mode="add" />
       </FormLayout>
     </AuthLayout>

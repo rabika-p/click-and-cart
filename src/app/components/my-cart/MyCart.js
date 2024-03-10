@@ -27,7 +27,7 @@ const MyCart = () => {
     0
   );
   return (
-    <Container>
+    <Container className="max-w-5xl flex flex-wrap items-center flex-col">
       <Typography variant="h5" component="div" gutterBottom>
         <ShoppingCartOutlinedIcon
           fontSize="large"
@@ -64,14 +64,14 @@ const MyCart = () => {
                       <Typography
                         variant="body1"
                         gutterBottom
-                        // style={{ marginRight: "20px" }}
+                        style={{ marginRight: "20px" }}
                       >
                         Price: ${item.product.price}
                       </Typography>
                       <Typography
                         variant="body1"
                         gutterBottom
-                        // style={{ marginRight: "20px" }}
+                        style={{ marginRight: "20px" }}
                       >
                         Total Price: ${item.product.price * item.quantity}
                       </Typography>
@@ -121,7 +121,7 @@ const MyCart = () => {
                 <Typography variant="h6">
                   Total Quantity: {totalQuantity}
                 </Typography>
-                <Typography variant="h6" style={{ marginRight: "20px" }}>
+                <Typography variant="h6">
                   Grand Total: ${totalPrice}
                 </Typography>
               </div>
