@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Click & Cart
 
-## Getting Started
+## Overview 
+Click & Cart is an E-Commerce Platform with Integrated Blog developed using Next.js and Redux.  
 
-First, run the development server:
+## User groups and Roles
+**Admin**  
+ Can manage products
+ 
+**Users**  
+ Can log-in, view list of products, add products to their cart, view blog that features posts
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Screenshots
+**Login Page**
+![Login](https://github.com/rabika-p/click-and-cart/assets/60596856/994e586d-30e0-4544-8a52-7b83dff7de76)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+**Search and Filter Product List - Admin View**
+![Search/Filter Products](https://github.com/rabika-p/click-and-cart/assets/60596856/42dc8048-5002-4e07-8d44-0f7ebcc965f8)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Add Product - Admin View**
+![Add Product](https://github.com/rabika-p/click-and-cart/assets/60596856/6abe919f-bf0b-49e6-a293-ea4b9d2cbc97)
 
-## Learn More
+**Edit Product - Admin View**
+![Edit Product](https://github.com/rabika-p/click-and-cart/assets/60596856/8a7a3ff5-ac07-4aa9-b2d4-21f7d06784e9)
 
-To learn more about Next.js, take a look at the following resources:
+**Search and Filter Product List - User View**
+![All Products User](https://github.com/rabika-p/click-and-cart/assets/60596856/ee78f95c-fe8c-4a79-bf07-26f605930d96)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Single Product Details - User View**
+![Single Product](https://github.com/rabika-p/click-and-cart/assets/60596856/fdddbb0a-53ad-4992-8973-4a6fb9cca07f)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**My Cart - User View**
+![My Cart](https://github.com/rabika-p/click-and-cart/assets/60596856/eb5c7e0f-dc60-4db9-b9ce-b06fc70683f2)
 
-## Deploy on Vercel
+**All Blog Posts - User View**
+![All Blogs](https://github.com/rabika-p/click-and-cart/assets/60596856/5a72842f-f78d-4816-af28-f5ab3d0ec648)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Upload a blog post - User View**
+![Add blog](https://github.com/rabika-p/click-and-cart/assets/60596856/d67c5b2f-d65e-4386-829c-9a74574805f1)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Installation
+
+ Clone the repository:
+
+   git clone https://github.com/rabika-p/click-and-cart.git  
+   cd click-and-cart
+
+
+## Usage  
+To start the development server run:  
+    `npm run dev`
+
+Open [http://localhost:3000](http://localhost:3000) with your browser
+
+### Sample Login Credentials
+**Admin**  
+Username: kminchelle  
+Password: 0lelplR  
+
+**User**  
+Username: kmeus4  
+Password: aUTdmmmbH  
