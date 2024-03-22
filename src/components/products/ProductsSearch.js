@@ -9,8 +9,8 @@ import {
   SvgIcon,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectCategories } from "@/app/slices/productsSlice";
-import useDebounce from "@/app/hooks/useDebounce";
+import { selectCategories } from "@/features/productsSlice";
+import useDebounce from "@/hooks/useDebounce";
 
 export const ProductsSearch = ({ handleSearch }) => {
   const [category, setCategory] = useState("");

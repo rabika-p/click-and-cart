@@ -10,7 +10,7 @@ import {
   selectCategories,
   selectProducts,
   updateProduct,
-} from "@/app/slices/productsSlice";
+} from "@/features/productsSlice";
 import { showToast } from "../login/Toast";
 
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";

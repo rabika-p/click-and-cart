@@ -16,21 +16,21 @@ import {
   Unstable_Grid2 as Grid,
 } from "@mui/material";
 
-import { BlogCard } from "../components/blogs/BlogCard";
+import { BlogCard } from "../../components/blogs/BlogCard";
 // import { ProductsSearch } from "../components/products/ProductsSearch";
 
-import { showToast } from "../components/login/Toast";
+import { showToast } from "../../components/login/Toast";
 
-import { useGetBlogsQuery } from "../services/blogsApi";
-import withAuth from "../hoc/withAuth";
+import { useGetBlogsQuery } from "../../services/blogsApi";
+import withAuth from "../../hoc/withAuth";
 
 import {
   blogDeleted,
   selectBlogs,
   fetchBlogs,
   setBlogs,
-} from "../slices/blogsSlice";
-import AuthLayout from "../layouts/authLayout";
+} from "../../features/blogsSlice";
+import AuthLayout from "../../layouts/authLayout";
 
 const Blogs = () => {
   const [currentPage, setCurrentPage] = useState(1);

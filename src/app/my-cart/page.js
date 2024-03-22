@@ -1,7 +1,7 @@
 "use client";
 
-import MyCart from "../components/my-cart/MyCart";
-import AuthLayout from "../layouts/authLayout";
+import MyCart from "../../components/my-cart/MyCart";
+import AuthLayout from "../../layouts/authLayout";
 
 const CartPage = () => {
   return (

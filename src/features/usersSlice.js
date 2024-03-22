@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+//persistent store
 
 const usersSlice = createSlice({
   name: 'users',

@@ -1,9 +1,9 @@
 "use client";
 
-import BlogForm from "../components/blogs/BlogForm";
-import withAuth from "../hoc/withAuth";
-import AuthLayout from "../layouts/authLayout";
-import FormLayout from "../layouts/layout";
+import BlogForm from "../../components/blogs/BlogForm";
+import withAuth from "../../hoc/withAuth";
+import AuthLayout from "../../layouts/authLayout";
+import FormLayout from "../../layouts/layout";
 
 const BlogFormPage = () => {
   return (

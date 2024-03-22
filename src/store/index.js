@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import usersReducer from '../slices/usersSlice';
-import productsReducer from '../slices/productsSlice';
-import cartsReducer from '../slices/cartsSlice';
-import blogsReducer from '../slices/blogsSlice';
+import usersReducer from '../features/usersSlice';
+import productsReducer from '../features/productsSlice';
+import cartsReducer from '../features/cartsSlice';
+import blogsReducer from '../features/blogsSlice';
 
 import { usersApi } from '../services/usersApi';
 import { productsApi } from '../services/productsApi';
