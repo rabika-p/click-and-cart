@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectBlogs } from "@/app/slices/blogsSlice";
-import BlogForm from "@/app/components/blogs/BlogForm";
-import FormLayout from "@/app/layouts/layout";
-import withAuth from "@/app/hoc/withAuth";
-import AuthLayout from "@/app/layouts/authLayout";
+import { selectBlogs } from "@/features/blogsSlice";
+import BlogForm from "@/components/blogs/BlogForm";
+import FormLayout from "@/layouts/layout";
+import withAuth from "@/hoc/withAuth";
+import AuthLayout from "@/layouts/authLayout";
 
 const EditBlogPage = () => {
   const blogs = useSelector(selectBlogs);

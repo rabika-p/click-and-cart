@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectProducts } from "@/app/slices/productsSlice";
-import ProductForm from "@/app/components/products/ProductForm";
-import FormLayout from "@/app/layouts/layout";
-import withAuth from "@/app/hoc/withAuth";
-import AuthLayout from "@/app/layouts/authLayout";
+import { selectProducts } from "@/features/productsSlice";
+import ProductForm from "@/components/products/ProductForm";
+import FormLayout from "@/layouts/layout";
+import withAuth from "@/hoc/withAuth";
+import AuthLayout from "@/layouts/authLayout";
 
 const EditProductPage = () => {
   const products = useSelector(selectProducts);

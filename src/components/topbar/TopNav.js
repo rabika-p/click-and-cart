@@ -17,7 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
-import { logout } from "../../slices/usersSlice";
+import { logout } from "../../features/usersSlice";
 import { Button } from "@mui/material";
 
 const settings = ["Profile", "Logout"];

@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-import { selectProductById } from "@/app/slices/productsSlice";
-import { addToCart } from "@/app/slices/cartsSlice";
+import { selectProductById } from "@/features/productsSlice";
+import { addToCart } from "@/features/cartsSlice";
 import { showToast } from "../login/Toast";
 import { useRouter } from "next/navigation";
 

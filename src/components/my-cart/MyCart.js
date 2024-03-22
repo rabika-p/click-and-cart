@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { increaseQuantity, decreaseQuantity, removeFromCart } from "@/app/slices/cartsSlice";
+import { increaseQuantity, decreaseQuantity, removeFromCart } from "@/features/cartsSlice";
 import {
   Button,
   Card,
@@ -28,7 +28,7 @@ const MyCart = () => {
   );
   return (
     <Container className="max-w-5xl flex flex-wrap items-center flex-col">
-      <Typography variant="h5" component="div" gutterBottom>
+      <Typography variant="h5" component="div" gutterBottom className="flex justify-center">
         <ShoppingCartOutlinedIcon
           fontSize="large"
           style={{ marginRight: "10px" }}

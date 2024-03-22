@@ -17,10 +17,10 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { styled } from "@mui/system";
 
-import { useLoginMutation } from "../services/usersApi";
-import { showToast } from "../components/login/Toast";
-import { loginSuccess } from "../slices/usersSlice";
-import FormLayout from "../layouts/layout";
+import { useLoginMutation } from "../../services/usersApi";
+import { showToast } from "../../components/login/Toast";
+import { loginSuccess } from "../../features/usersSlice";
+import FormLayout from "../../layouts/layout";
 
 const theme = createTheme();
 

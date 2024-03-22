@@ -16,20 +16,20 @@ import {
   Unstable_Grid2 as Grid,
 } from "@mui/material";
 
-import { ProductCard } from "../components/products/ProductCard";
-import { ProductsSearch } from "../components/products/ProductsSearch";
-import { showToast } from "../components/login/Toast";
+import { ProductCard } from "../../components/products/ProductCard";
+import { ProductsSearch } from "../../components/products/ProductsSearch";
+import { showToast } from "../../components/login/Toast";
 
-import { useGetProductsQuery } from "../services/productsApi";
-import withAuth from "../hoc/withAuth";
+import { useGetProductsQuery } from "../../services/productsApi";
+import withAuth from "../../hoc/withAuth";
 
 import {
   productDeleted,
   selectProducts,
   fetchProducts,
   setProducts,
-} from "../slices/productsSlice";
-import AuthLayout from "../layouts/authLayout";
+} from "../../features/productsSlice";
+import AuthLayout from "../../layouts/authLayout";
 
 const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);

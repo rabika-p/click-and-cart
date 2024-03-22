@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { addBlog, selectBlogs, updateBlog } from "@/app/slices/blogsSlice";
+import { addBlog, selectBlogs, updateBlog } from "@/features/blogsSlice";
 import { showToast } from "../login/Toast";
 
 import BookIcon from "@mui/icons-material/Book";
