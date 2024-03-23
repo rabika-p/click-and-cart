@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
+import { selectToken } from "@/features/usersSlice";
+
 const withAuth = (WrappedComponent) => {
   const Auth = (props) => {
     const router = useRouter();
-    const { token } = useSelector((state) => state.users);
+    const token = useSelector(selectToken);
 
     useEffect(() => {
       if (!token) {

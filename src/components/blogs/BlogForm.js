@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { addBlog, selectBlogs, updateBlog } from "@/features/blogsSlice";
+import { selectUserId } from "@/features/usersSlice";
+
 import { showToast } from "../login/Toast";
 
 import BookIcon from "@mui/icons-material/Book";
@@ -16,6 +18,7 @@ const BlogForm = ({ mode, blogToEdit }) => {
   const dispatch = useDispatch();
 
   const blogs = useSelector(selectBlogs);
+  const userId = useSelector(selectUserId);
 
   const [blogData, setBlogData] = useState({
     title: blogToEdit?.title || "",
@@ -42,7 +45,8 @@ const BlogForm = ({ mode, blogToEdit }) => {
     try {
       if (mode === "add") {
         const newId = blogs.length > 0 ? blogs[blogs.length - 1].id + 1 : 1;
-        const newBlog = { ...blogData, id: newId };
+        const newBlog = { ...blogData, id: newId, userId };
+        console.log(newBlog);
         dispatch(addBlog(newBlog));
         showToast("Blog added successfully", "success");
       } else if (mode === "edit" && blogToEdit) {
@@ -70,7 +74,6 @@ const BlogForm = ({ mode, blogToEdit }) => {
         </Link>
       </div>
       <p className="text-md text-gray-700 mb-4">
-        {" "}
         {mode === "add" ? "Enter Blog Information" : "Edit Blog Information"}
       </p>
       <form onSubmit={handleSubmit}>

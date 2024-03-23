@@ -1,3 +1,4 @@
+import { selectToken } from "@/features/usersSlice";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_HOST;
@@ -10,7 +11,7 @@ export const baseQueryWithAuth = fetchBaseQuery({
     try {
       // Only add auth header for requests other than POST to the login endpoint
       if (!(method === "POST" && url.includes("/auth/login"))) {
-      const authToken = getState().users.token;
+      const authToken = selectToken(getState());
       if (authToken) {
         headers.set("Authorization", `Bearer ${authToken}`);
       }

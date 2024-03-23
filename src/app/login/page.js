@@ -57,12 +57,16 @@ export default function SignIn() {
     e.preventDefault();
 
     try {
+      // Check for successful login
       const result = await loginMutation(JSON.stringify(formData));
+      // Check if result contains data (login is successful)
       if (result.data) {
-        const { token } = result.data;
+        // Extract token and userId
+        const { token, id } = result.data;
         const { username, password } = formData;
         const isAdmin = checkAdminCredentials(username, password);
-        dispatch(loginSuccess({ token, isAdmin, username }));
+        // Dispatch loginSuccess action which updates the Redux state
+        dispatch(loginSuccess({ token, isAdmin, username, id }));
         showToast("Login successful!", "success");
         router.push("/products");
       } else {

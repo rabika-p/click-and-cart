@@ -17,7 +17,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
-import { logout } from "../../features/usersSlice";
+import { logout, selectUsername } from "../../features/usersSlice";
+
 import { Button } from "@mui/material";
 
 const settings = ["Profile", "Logout"];
@@ -27,7 +28,7 @@ function TopNav() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { username } = useSelector((state) => state.users);
+  const username = useSelector(selectUsername);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
