@@ -19,17 +19,10 @@ import {
 import { BlogCard } from "../../components/blogs/BlogCard";
 // import { ProductsSearch } from "../components/products/ProductsSearch";
 
-import { showToast } from "../../components/login/Toast";
-
 import { useGetBlogsQuery } from "../../services/blogsApi";
 import withAuth from "../../hoc/withAuth";
 
-import {
-  blogDeleted,
-  selectBlogs,
-  fetchBlogs,
-  setBlogs,
-} from "../../features/blogsSlice";
+import { selectBlogs, setBlogs } from "../../features/blogsSlice";
 import AuthLayout from "../../layouts/authLayout";
 
 const Blogs = () => {
@@ -49,19 +42,8 @@ const Blogs = () => {
   useEffect(() => {
     if (data && data.posts && blogs.length === 0) {
       dispatch(setBlogs(data.posts));
-    } 
-  }, [data, blogs]);
-
-  const handleDelete = async (blogId) => {
-    try {
-      // Dispatch action to update Redux store
-      dispatch(blogDeleted(blogId));
-
-      showToast("Blog deleted successfully", "success");
-    } catch (error) {
-      console.error("Error deleting blog:", "error");
     }
-  };
+  }, [data, blogs]);
 
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
@@ -75,27 +57,12 @@ const Blogs = () => {
             <Stack spacing={1}>
               <Typography variant="h4">Blogs </Typography>
             </Stack>
-            <div>
-                <Link href="/add-blog">
-                  <Button
-                    startIcon={
-                      <SvgIcon fontSize="small">
-                        <AddIcon />
-                      </SvgIcon>
-                    }
-                    variant="contained"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    Add
-                  </Button>
-                </Link>
-            </div>
           </Stack>
           {/* <ProductsSearch /> */}
           <Grid container spacing={3}>
             {paginatedBlogs.map((blog) => (
               <Grid xs={12} md={6} lg={4} key={blog.id}>
-                <BlogCard blog={blog} handleDelete={handleDelete} />
+                <BlogCard blog={blog} />
               </Grid>
             ))}
           </Grid>

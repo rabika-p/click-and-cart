@@ -1,6 +1,10 @@
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import StarIcon from "@mui/icons-material/Star";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+
+import { selectUserId } from "@/features/usersSlice";
+
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -11,85 +15,71 @@ import {
   CardContent,
   Divider,
   IconButton,
-  Stack,
-  SvgIcon,
   Typography,
 } from "@mui/material";
-import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 
 export const BlogCard = (props) => {
   const [isButtonVisible, setIsButtonVisible] = useState(false);
 
   const { blog, handleDelete } = props;
-  const { isAdmin } = useSelector((state) => state.users);
+
+  const userId = useSelector(selectUserId);
+
   const router = useRouter();
+  const pathname = usePathname();
 
-  // const handleEdit = () => {
-  //   router.push(`/edit-blog/${blog.id}`);
-  // };
+  console.log(router, pathname);
 
-  // const truncateDescription = (description) => {
-  //   return description.length > 50
-  //     ? description.slice(0, 50) + "..."
-  //     : description;
-  // };
+  const handleEdit = () => {
+    router.push(`/edit-blog/${blog.id}`);
+  };
 
-  // const renderActions = () => {
-  //   if (isAdmin) {
-  //     return (
-  //       <div
-  //         style={{
-  //           display: "flex",
-  //           flexDirection: "row",
-  //           justifyContent: "space-between",
-  //         }}
-  //       >
-  //         <IconButton
-  //           style={{
-  //             backgroundColor: "#54C4CD",
-  //             color: "white",
-  //             "&:hover": {
-  //               backgroundColor: "#23C5D2",
-  //             },
-  //           }}
-  //         >
-  //           <VisibilityIcon />
-  //         </IconButton>
+  const truncateDescription = (description) => {
+    return description.length > 50
+      ? description.slice(0, 50) + "..."
+      : description;
+  };
 
-  //         <div>
-  //           <IconButton
-  //             style={{
-  //               backgroundColor: "#698bf4",
-  //               color: "white",
-  //               "&:hover": {
-  //                 backgroundColor: "#6182e6",
-  //               },
-  //             }}
-  //             onClick={handleEdit}
-  //           >
-  //             <EditIcon />
-  //           </IconButton>
+  const renderActions = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+        }}
+      >
+        <div>
+          <IconButton
+            style={{
+              backgroundColor: "#698bf4",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "#6182e6",
+              },
+            }}
+            onClick={handleEdit}
+          >
+            <EditIcon />
+          </IconButton>
 
-  //           <IconButton
-  //             style={{
-  //               backgroundColor: "#f46b6b",
-  //               color: "white",
-  //               marginLeft: "0.5rem",
-  //               "&:hover": {
-  //                 backgroundColor: "#e66363",
-  //               },
-  //             }}
-  //             onClick={() => handleDelete(blog.id)}
-  //           >
-  //             <DeleteIcon />
-  //           </IconButton>
-  //         </div>
-  //       </div>
-  //     );
-  //   }
-  // };
+          <IconButton
+            style={{
+              backgroundColor: "#f46b6b",
+              color: "white",
+              marginLeft: "0.5rem",
+              "&:hover": {
+                backgroundColor: "#e66363",
+              },
+            }}
+            onClick={() => handleDelete(blog.id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <Card
@@ -150,10 +140,16 @@ export const BlogCard = (props) => {
             {blog.body}
           </Typography>
         </div>
-
-        <Box sx={{ pt: 1, px: 2, textAlign: "center" }}>
-          {isAdmin ? renderActions() : null}
-        </Box>
+        {pathname === "/my-posts" && blog.userId === userId && (
+          <>
+            <Divider sx={{ mt: 2 }} />
+            <Box sx={{ pt: 1, px: 2, textAlign: "center" }}>
+              {pathname === "/my-posts" && blog.userId === userId
+                ? renderActions()
+                : null}
+            </Box>
+          </>
+        )}
       </CardContent>
       <div
         style={{
@@ -161,19 +157,18 @@ export const BlogCard = (props) => {
           top: 0,
           left: 0,
           right: 0,
-          bottom: 0,
+          bottom: pathname === "/my-posts" ? 70 : 0,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           opacity: 0.8,
           pointerEvents: "none",
-          ...(isAdmin === false &&
-            isButtonVisible && {
-              backgroundColor: "#F5F5F5",
-            }),
+          ...(isButtonVisible && {
+            backgroundColor: "#F5F5F5",
+          }),
         }}
       >
-        {isButtonVisible && isAdmin === false && (
+        {isButtonVisible && (
           <button
             className="viewMoreButton"
             style={{

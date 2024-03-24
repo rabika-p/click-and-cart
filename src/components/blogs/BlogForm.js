@@ -53,7 +53,7 @@ const BlogForm = ({ mode, blogToEdit }) => {
         dispatch(updateBlog(blogData));
         showToast("Blog updated successfully", "success");
       }
-      router.push("/blogs");
+      router.push("/my-posts");
     } catch (error) {
       console.error("Error:", error);
       showToast("Operation failed", "error");
