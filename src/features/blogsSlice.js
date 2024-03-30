@@ -12,9 +12,7 @@ export const blogsSlice = createSlice({
       state.blogs = action.payload;
     },
     deleteBlog: (state, action) => {
-      state.blogs = state.blogs.filter(
-        (blog) => blog.id !== action.payload
-      );
+      state.blogs = state.blogs.filter((blog) => blog.id !== action.payload);
     },
     addBlog: (state, action) => {
       state.blogs.push(action.payload);
@@ -30,8 +28,7 @@ export const blogsSlice = createSlice({
   },
 });
 
-export const { addBlog, setBlogs, deleteBlog, updateBlog  } =
-  blogsSlice.actions;
+export const { addBlog, setBlogs, deleteBlog, updateBlog } = blogsSlice.actions;
 
 export default blogsSlice.reducer;
 
@@ -39,4 +36,3 @@ export const selectBlogs = (state) => state.blogs.blogs;
 
 export const selectBlogById = (id) => (state) =>
   state.blogs.blogs.find((blog) => blog.id === parseInt(id));
-

@@ -28,10 +28,12 @@ export const BlogCard = (props) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  console.log(router, pathname);
-
   const handleEdit = () => {
     router.push(`/edit-blog/${blog.id}`);
+  };
+
+  const handleView = () => {
+    router.push(`/blogs/${blog.id}`);
   };
 
   const truncateDescription = (description) => {
@@ -176,6 +178,7 @@ export const BlogCard = (props) => {
               color: "black",
               pointerEvents: "auto",
             }}
+            onClick={handleView}
           >
             <VisibilityIcon />
           </button>

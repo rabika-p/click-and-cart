@@ -62,11 +62,11 @@ export default function SignIn() {
       // Check if result contains data (login is successful)
       if (result.data) {
         // Extract token and userId
-        const { token, id } = result.data;
+        const { token, id, ...otherDetails } = result.data;
         const { username, password } = formData;
         const isAdmin = checkAdminCredentials(username, password);
         // Dispatch loginSuccess action which updates the Redux state
-        dispatch(loginSuccess({ token, isAdmin, username, id }));
+        dispatch(loginSuccess({ token, isAdmin, username, id, ...otherDetails }));
         showToast("Login successful!", "success");
         router.push("/products");
       } else {
