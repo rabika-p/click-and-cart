@@ -5,10 +5,20 @@ Click & Cart is an E-Commerce Platform with Integrated Blog developed using Next
 
 ## User groups and Roles
 **Admin**  
- Can manage products
+ * Authentication: 
+   * Can log-in
+* Products
+  * Can manage products
  
 **Users**  
- Can log-in, view list of products, add products to their cart, view blog that features posts
+ * Authentication: 
+   * Can log-in
+ * Products: 
+   * Browse, search, filter products, and add them to their cart.
+ * Blogs: 
+   * Read blog posts, add and manage personal blog posts, add comments.
+ * Profile:
+    * View user profile information
 
 
 ## Project Screenshots
@@ -38,6 +48,13 @@ Click & Cart is an E-Commerce Platform with Integrated Blog developed using Next
 
 **Upload a blog post - User View**
 ![Add blog](https://github.com/rabika-p/click-and-cart/assets/60596856/d67c5b2f-d65e-4386-829c-9a74574805f1)
+
+**View blog post and add/view comments - User View**
+![View Blog](https://github.com/rabika-p/click-and-cart/assets/60596856/2f881bff-cfbf-441c-9e83-ff0c2ad623c5)
+
+**View my profile - User View**
+![My Profile](https://github.com/rabika-p/click-and-cart/assets/60596856/6c14164e-f8e8-4cac-88cd-0ee932ff9c6d)
+
 
 
 ## Installation
