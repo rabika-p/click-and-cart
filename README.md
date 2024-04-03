@@ -9,6 +9,8 @@ Click & Cart is an E-Commerce Platform with Integrated Blog developed using Next
    * Can log-in
 * Products
   * Can manage products
+* Profile:
+    * View admin profile information
  
 **Users**  
  * Authentication: 
@@ -33,6 +35,9 @@ Click & Cart is an E-Commerce Platform with Integrated Blog developed using Next
 
 **Edit Product - Admin View**
 ![Edit Product](https://github.com/rabika-p/click-and-cart/assets/60596856/8a7a3ff5-ac07-4aa9-b2d4-21f7d06784e9)
+
+**My Profile - Admin View**
+![Admin Profile](https://github.com/rabika-p/click-and-cart/assets/60596856/c0122732-79fb-43a9-aade-3ccd9e87d29f)
 
 **Search and Filter Product List - User View**
 ![All Products User](https://github.com/rabika-p/click-and-cart/assets/60596856/ee78f95c-fe8c-4a79-bf07-26f605930d96)
