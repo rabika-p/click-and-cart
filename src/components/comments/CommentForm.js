@@ -1,15 +1,28 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import {IconButton, InputBase, Paper } from "@mui/material";
+import { IconButton, InputBase, Paper } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
-const CommentForm = ({ onSubmit }) => {
+import { selectUsername } from "@/features/usersSlice";
+import { addComment } from "@/features/commentsSlice";
+
+const CommentForm = ({ blogId }) => {
+  const dispatch = useDispatch();
+  const username = useSelector(selectUsername);
   const [commentText, setCommentText] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (commentText.trim() !== "") {
-      onSubmit(commentText);
+      const newComment = {
+        postId: blogId,
+        user: {
+          username: username,
+        },
+        body: commentText,
+      };
+      dispatch(addComment(newComment));
       setCommentText("");
     }
   };
@@ -33,7 +46,7 @@ const CommentForm = ({ onSubmit }) => {
         value={commentText}
         onChange={(e) => setCommentText(e.target.value)}
       />
-      <IconButton color="primary" sx={{ p: "10px" }}>
+      <IconButton color="primary" sx={{ p: "10px" }} onClick={handleSubmit}>
         <SendIcon />
       </IconButton>
     </Paper>

@@ -1,26 +1,30 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQueryWithAuth } from './baseQueryWithAuth';
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQueryWithAuth } from "./baseQueryWithAuth";
 
 // API slice called usersAPI
 export const usersApi = createApi({
   // Define reducer slice name
-  reducerPath: 'usersApi',
+  reducerPath: "usersApi",
   // Base query function for making HTTP requests
   baseQuery: baseQueryWithAuth,
-  // Define API endpoints 
+  // Define API endpoints
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (loginData) => ({
-        url: 'auth/login',
-        method: 'POST',
+        url: "auth/login",
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         // Specify req.body
         body: loginData,
       }),
     }),
+
+    getUserById: builder.query({
+      query: (userId) => `users/${userId}`,
+    }),
   }),
 });
-export const { login } = usersApi.endpoints;
-export const { useLoginMutation } = usersApi;
+export const { login, getUserById } = usersApi.endpoints;
+export const { useLoginMutation, useGetUserByIdQuery } = usersApi;

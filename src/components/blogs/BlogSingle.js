@@ -1,6 +1,6 @@
 "use client";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 
 import { Avatar, Box, Paper, Typography } from "@mui/material";
@@ -8,11 +8,31 @@ import { Avatar, Box, Paper, Typography } from "@mui/material";
 import { selectBlogById } from "@/features/blogsSlice";
 import { selectNameById } from "@/features/usersSlice";
 import CommentForm from "../comments/CommentForm";
+import CommentList from "../comments/CommentList";
+import { selectCommentsByBlogId, setComments } from "@/features/commentsSlice";
+import { useGetCommentsQuery } from "@/services/commentsApi";
+import { useEffect } from "react";
+import { useGetUserByIdQuery } from "@/services/usersApi";
 
 const BlogSingle = () => {
+  const dispatch = useDispatch();
+  
   const { id } = useParams();
   const blog = useSelector(selectBlogById(id));
-  const authorName = useSelector(selectNameById(blog.userId));
+  // const authorName = useSelector(selectNameById(blog.userId));
+  // console.log(authorName)
+  const { data: authorData } = useGetUserByIdQuery(blog.userId); 
+  const authorName = authorData ? `${authorData.firstName} ${authorData.lastName}` : null;
+
+  const comments = useSelector(selectCommentsByBlogId(id));
+
+  const { data } = useGetCommentsQuery(id);
+
+  useEffect(() => {
+    if (data && data.comments && comments.length === 0) {
+      dispatch(setComments(data.comments));
+    } 
+  }, [data, comments]);
 
   if (!blog) {
     return <div>Loading...</div>;
@@ -47,7 +67,14 @@ const BlogSingle = () => {
           {authorName}
         </Typography>
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <img
           src={blog.thumbnail ? blog.thumbnail : "/assets/blog-thumbnail.jpg"}
           alt={blog.title}
@@ -64,8 +91,14 @@ const BlogSingle = () => {
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "center", marginTop: "3%" }}>
-        <CommentForm blogId={blog.id}  />
+        <CommentForm blogId={blog.id} />
       </Box>
+
+      {comments && comments.length > 0 && (
+        <Box sx={{ display: "flex", justifyContent: "center", marginTop: "3%" }}>
+          <CommentList comments={comments} />
+        </Box>
+      )}
     </Paper>
   );
 };
