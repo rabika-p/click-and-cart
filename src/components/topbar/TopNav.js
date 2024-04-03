@@ -44,6 +44,11 @@ function TopNav() {
     router.push("/login");
   };
 
+  const handleProfile = () => {
+    handleCloseUserMenu();
+    router.push("/my-profile");
+  };
+
   return (
     <AppBar
       position="sticky"
@@ -85,7 +90,11 @@ function TopNav() {
                 <MenuItem
                   key={setting}
                   onClick={
-                    setting === "Logout" ? handleLogout : handleCloseUserMenu
+                    setting === "Logout"
+                      ? handleLogout
+                      : setting === "Profile"
+                      ? handleProfile
+                      : handleCloseUserMenu
                   }
                 >
                   <Typography textAlign="center">{setting}</Typography>
